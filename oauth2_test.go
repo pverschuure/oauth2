@@ -41,7 +41,7 @@ func newConf(url string) *Config {
 func TestAuthCodeURL(t *testing.T) {
 	conf := newConf("server")
 	url := conf.AuthCodeURL("foo", AccessTypeOffline, ApprovalForce)
-	const want = "server/auth?access_type=offline&approval_prompt=force&client_id=CLIENT_ID&redirect_uri=REDIRECT_URL&response_type=code&scope=scope1+scope2&state=foo"
+	const want = "server/auth?access_type=offline&approval_prompt=force&client_id=CLIENT_ID&redirect_uri=REDIRECT_URL&response_type=code&scope=scope1%2Cscope2&state=foo"
 	if got := url; got != want {
 		t.Errorf("got auth code URL = %q; want %q", got, want)
 	}
@@ -51,7 +51,7 @@ func TestAuthCodeURL_CustomParam(t *testing.T) {
 	conf := newConf("server")
 	param := SetAuthURLParam("foo", "bar")
 	url := conf.AuthCodeURL("baz", param)
-	const want = "server/auth?client_id=CLIENT_ID&foo=bar&redirect_uri=REDIRECT_URL&response_type=code&scope=scope1+scope2&state=baz"
+	const want = "server/auth?client_id=CLIENT_ID&foo=bar&redirect_uri=REDIRECT_URL&response_type=code&scope=scope1%2Cscope2&state=baz"
 	if got := url; got != want {
 		t.Errorf("got auth code = %q; want %q", got, want)
 	}
@@ -387,7 +387,7 @@ func TestPasswordCredentialsTokenRequest(t *testing.T) {
 		if err != nil {
 			t.Errorf("Failed reading request body: %s.", err)
 		}
-		expected = "grant_type=password&password=password1&scope=scope1+scope2&username=user1"
+		expected = "grant_type=password&password=password1&scope=scope1%2Cscope2&username=user1"
 		if string(body) != expected {
 			t.Errorf("res.Body = %q; want %q", string(body), expected)
 		}

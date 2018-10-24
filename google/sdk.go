@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"golang.org/x/net/context"
-	"golang.org/x/oauth2"
+	"github.com/pverschuure/oauth2"
 )
 
 type sdkCredentials struct {
